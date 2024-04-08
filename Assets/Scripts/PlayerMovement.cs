@@ -41,8 +41,8 @@ public class PlayerMovement : MonoBehaviour
 	public GameObject panel;
 	public SpriteRenderer bloodOverlay;
 	public TextMeshProUGUI healthText;
-	public int curHealth;
-	public int maxHealth;
+	public float curHealth;
+	public float maxHealth;
 	public HealthBar healthBar;
 
 	void Start()
@@ -132,11 +132,6 @@ public class PlayerMovement : MonoBehaviour
 			RuntimeManager.PlayOneShot(footstep, this.gameObject.transform.localPosition + new Vector3(0, -3, 0));
 		}
 		#endregion
-
-		if(curHealth <= 0)
-		{
-			Die();
-		}
 		
 		float newOpacity = 1f - (curHealth / 100);
 
@@ -152,9 +147,14 @@ public class PlayerMovement : MonoBehaviour
 		Cursor.visible = true;
 	}
 
-	public void TakeDamage(int damageAmount)
-	{
-		curHealth -= damageAmount;
-		healthBar.SetHealth(curHealth);
-	}
+    public void TakeDamage(float damage)
+    {
+        curHealth -= damage;
+
+        if (curHealth <= 0)
+        {
+			Die();
+        }
+
+    }
 }

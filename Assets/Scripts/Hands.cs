@@ -56,8 +56,9 @@ public class Hands : MonoBehaviour
 		public float reloadTime;
 		public EventReference shootSound;
 		public float damage;
+		public bool fullAuto;
 
-		public Gun(string Name, int Ammo, int MagSize, float Spread, float ReloadTime, float ShootingCooldown, float Damage, AnimatorController AC, EventReference ShootSound, bool Acquired, int Pellets = 1)
+		public Gun(string Name, int Ammo, int MagSize, float Spread, float ReloadTime, float ShootingCooldown, float Damage, AnimatorController AC, EventReference ShootSound, bool Acquired, int Pellets = 1, bool FullAuto = false)
 		{
 			name = Name;
 			ammo = Ammo;
@@ -76,19 +77,22 @@ public class Hands : MonoBehaviour
 			shootSound = ShootSound;
 
 			damage = Damage;
+
+			fullAuto = FullAuto;
+			
 		}
 	}
 
 	void Start()
 	{
-		Gun pistol = new Gun("Pistol", 24, 12, 0f, 0.25f, 0.2f, 30f, pistolAnim, pistolShot, true);
+		Gun pistol = new Gun("Pistol", 24, 12, 0f, 0.25f, 0.2f, 30f, pistolAnim, pistolShot, true, 1);
 		Gun shotgun = new Gun("Shotgun", 10, 3, 0.1f, 0.5f, 0.5f, 10f, shotgunAnim, shotgunShot, true, 6);
-		Gun submachineGun = new Gun("Pistol", 300, 12, 1.2f, 0.5f, 1f, 1f, null, pistolShot, false);
+		Gun subMachineGun = new Gun("uzi", 48, 12, 0.1f, 0.3f, 0.1f, 12f, pistolAnim, pistolShot, true, 1, true);
 		Gun machineGun = new Gun("Pistol", 400, 12, 1.2f, 0.5f, 1f, 1f, null, pistolShot, false);
 
 		Inventory[0] = pistol;
 		Inventory[1] = shotgun;
-		Inventory[2] = submachineGun;
+		Inventory[2] = subMachineGun;
 		Inventory[3] = machineGun;
 
 		readyToShoot = true;
@@ -164,7 +168,20 @@ public class Hands : MonoBehaviour
 		lightIntensity = muzzleFlashLight.intensity;
 
 		if (Input.GetKeyDown(KeyCode.R) && equippedGun.bulletsLeft < equippedGun.magSize && !reloading) Reload();
-		if (Input.GetMouseButtonDown(0) && readyToShoot && !reloading)
+		if (Input.GetMouseButtonDown(0) && readyToShoot && !reloading && !equippedGun.fullAuto)
+		{
+			if (equippedGun.bulletsLeft > 0)
+			{
+				Shoot();
+			}
+			else
+			{
+				readyToShoot = false;
+				RuntimeManager.PlayOneShot(emptyClip);
+				Invoke("ResetShot", equippedGun.shootingCooldown);
+			}
+		}
+		if(Input.GetMouseButton(0) && readyToShoot && !reloading && equippedGun.fullAuto)
 		{
 			if (equippedGun.bulletsLeft > 0)
 			{
@@ -186,6 +203,7 @@ public class Hands : MonoBehaviour
 
 	void Shoot()
 	{
+		bool isFullAuto = equippedGun.fullAuto;
 		readyToShoot = false;
 
 		muzzleFlashAnimator.Play("flashOn");
@@ -222,9 +240,15 @@ public class Hands : MonoBehaviour
 			}
 		}
 
+		// if(equippedGun.fullAuto)
+		// {
+		// 	Invoke("Shoot", 0.1f);
+		// }
+
 		equippedGun.bulletsLeft--;
 
 		Invoke("ResetShot", equippedGun.shootingCooldown);
+
 	}
 
 	void SpawnBulletHole(RaycastHit hit, Ray ray)

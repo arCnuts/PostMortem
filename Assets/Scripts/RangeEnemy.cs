@@ -7,10 +7,11 @@ public class RangeEnemy : Enemy
 {
     public float timeBetweenShots = 1f;
     private float lastShotTime;
-    public float maxDistanceToPlayer = 10f;
+    public float maxDistanceToPlayer = 20f;
     public float shootInterval = 1f;
     private float lastShootTime;
     public float raycastSpreadAngle = 10f;
+    public float stopDistance = 10f;
 
     void Start()
     {
@@ -23,7 +24,13 @@ public class RangeEnemy : Enemy
 
     void Update()
     {
-        enemy.SetDestination(player.transform.position);
+        if(player != null)
+        {
+            if (Vector3.Distance(transform.position, player.position) > stopDistance)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
+            }
+        }
         if (enemyHealth <= 0)
         {
             Destroy(gameObject);

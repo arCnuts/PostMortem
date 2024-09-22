@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pistol_post_mortem200_idle
+  m_Name: uzi_post_mortem200
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,7 +21,7 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -383616061, guid: 9981a672b1fbe7f4b88fe938671b5353, type: 3}
+      value: {fileID: 230502815, guid: a3221ddb9192e4e449460ecd6799b32b, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -44,7 +44,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: -383616061, guid: 9981a672b1fbe7f4b88fe938671b5353, type: 3}
+    - {fileID: 230502815, guid: a3221ddb9192e4e449460ecd6799b32b, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

@@ -729,7 +729,7 @@ Transform:
   m_GameObject: {fileID: 215615229}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.0781273, y: 0.70908594, z: 0}
+  m_LocalPosition: {x: -0.657, y: 0.53, z: 0}
   m_LocalScale: {x: 1.3333334, y: 1.3333334, z: 1.3333334}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -13105,7 +13105,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &781143063
 Animator:
   serializedVersion: 7
@@ -13926,9 +13926,12 @@ MonoBehaviour:
   bulletHolePrefab: {fileID: 3982724790864250032, guid: 432ade47b1459ac4f883fcf3ff568ec5,
     type: 3}
   bulletHoleContainer: {fileID: 197202452}
+  enemies:
+  - {fileID: 781143062}
   destroyDelay: 10
   pistolAnim: {fileID: 9100000, guid: fe3a248c6b6ad9540b007bf68777d017, type: 2}
   shotgunAnim: {fileID: 9100000, guid: ace62504ce38826489a4f2c517146603, type: 2}
+  uziAnim: {fileID: 9100000, guid: 0679af74fbfe11e4aa898d47f7ecf1b9, type: 2}
   crosshair: {fileID: 2102274949}
   hand: {fileID: 1650564792}
   muzzleFlash: {fileID: 215615230}
@@ -13936,6 +13939,7 @@ MonoBehaviour:
   muzzleFlashLight: {fileID: 215615234}
   muzzleFlashFlash: {fileID: 919531666}
   gunImpact: {fileID: 114730127}
+  hitParticlePrefab: {fileID: 0}
   pistolShot:
     Guid:
       Data1: -502191883
@@ -25604,7 +25608,7 @@ RectTransform:
   m_GameObject: {fileID: 1650564788}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 150, y: 150, z: 150}
+  m_LocalScale: {x: 250, y: 250, z: 250}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 215615230}
@@ -25612,7 +25616,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 240.50003, y: -90.862885}
+  m_AnchoredPosition: {x: 182, y: -90.862885}
   m_SizeDelta: {x: 219, y: 168}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1650564791
@@ -25688,7 +25692,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -1988811841, guid: a527476e6a5b56a48af43d401f9298b5, type: 3}
+  m_Sprite: {fileID: -991211199, guid: 9981a672b1fbe7f4b88fe938671b5353, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

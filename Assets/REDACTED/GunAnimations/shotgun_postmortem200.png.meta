@@ -103,7 +103,7 @@ TextureImporter:
         x: 0
         y: 0
         width: 200
-        height: 107
+        height: 118
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,8 +111,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0c6e8da835737ff4facd6692194a27c7
-      internalID: -1998733335
+      spriteID: cddf4902340a79e4fa14da3c3c310478
+      internalID: -864537633
       vertices: []
       indices: 
       edges: []
@@ -120,7 +120,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 23e81413066025348bbee837542ff6c9
     internalID: 0
     vertices: []
     indices: 
@@ -128,7 +128,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      shotgun_postmortem200_0: -1998733335
+      shotgun_postmortem200_0: -864537633
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

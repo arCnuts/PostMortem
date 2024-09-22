@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: shotgun_postmortem200_idle
+  m_Name: shotgun_postmortem200
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,7 +21,7 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -1998733335, guid: 4f24c36c71f4b98458461db6b64b1f76, type: 3}
+      value: {fileID: -864537633, guid: 4f24c36c71f4b98458461db6b64b1f76, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -44,7 +44,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: -1998733335, guid: 4f24c36c71f4b98458461db6b64b1f76, type: 3}
+    - {fileID: -864537633, guid: 4f24c36c71f4b98458461db6b64b1f76, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

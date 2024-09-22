@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9981a672b1fbe7f4b88fe938671b5353
+guid: a3221ddb9192e4e449460ecd6799b32b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,7 +97,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: pistol_post_mortem200_0
+      name: uzi_post_mortem200_0
       rect:
         serializedVersion: 2
         x: 0
@@ -111,8 +111,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 96ba60b49c6437147b72463bed1c92d7
-      internalID: -991211199
+      spriteID: 367da57e9d2ceda4d8be12070d96171e
+      internalID: 230502815
       vertices: []
       indices: 
       edges: []
@@ -120,7 +120,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 69055321b5c9d004d8fc2ac2574bd57c
+    spriteID: 43196d5df281b584080d8c155b06aab6
     internalID: 0
     vertices: []
     indices: 
@@ -128,7 +128,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      pistol_post_mortem200_0: -991211199
+      uzi_post_mortem200_0: 230502815
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -2,6 +2,9 @@ using UnityEditor.Animations;
 using UnityEngine;
 using TMPro;
 using FMODUnity;
+using UnityEngine.UI;
+using System.Collections;
+using UnityEditor.EditorTools;
 
 public class Hands : MonoBehaviour
 {
@@ -42,6 +45,9 @@ public class Hands : MonoBehaviour
 	bool readyToShoot;
 	public UIManager uim;
 
+	public Image reloadCircle;
+	private float currentReloadProgress;
+
 	public class Gun
 	{
 		public string name;
@@ -79,7 +85,7 @@ public class Hands : MonoBehaviour
 			damage = Damage;
 
 			fullAuto = FullAuto;
-			
+
 		}
 	}
 
@@ -161,7 +167,6 @@ public class Hands : MonoBehaviour
 
 		selectedGun = nextSelectedGun;
 
-
 		hand.runtimeAnimatorController = equippedGun.ac;
 
 		flashIntensity = muzzleFlashFlash.intensity;
@@ -181,7 +186,7 @@ public class Hands : MonoBehaviour
 				Invoke("ResetShot", equippedGun.shootingCooldown);
 			}
 		}
-		if(Input.GetMouseButton(0) && readyToShoot && !reloading && equippedGun.fullAuto)
+		if (Input.GetMouseButton(0) && readyToShoot && !reloading && equippedGun.fullAuto)
 		{
 			if (equippedGun.bulletsLeft > 0)
 			{
@@ -194,6 +199,13 @@ public class Hands : MonoBehaviour
 				Invoke("ResetShot", equippedGun.shootingCooldown);
 			}
 		}
+
+		if (reloading)
+		{
+			currentReloadProgress += Time.deltaTime / equippedGun.reloadTime;
+			reloadCircle.fillAmount = Mathf.Clamp01(currentReloadProgress);
+		}
+
 
 		muzzleFlashLight.intensity = Mathf.Lerp(lightIntensity, 0f, Time.deltaTime * 10f);
 		muzzleFlashFlash.intensity = Mathf.Lerp(flashIntensity, 0f, Time.deltaTime * 15f);
@@ -276,6 +288,8 @@ public class Hands : MonoBehaviour
 	private void Reload()
 	{
 		reloading = true;
+		currentReloadProgress = 0f; // Reset progress
+		reloadCircle.fillAmount = 0f; // Reset UI
 		Invoke("ReloadFinished", equippedGun.reloadTime);
 	}
 
@@ -292,5 +306,8 @@ public class Hands : MonoBehaviour
 			Inventory[selectedGun].ammo = 0;
 		}
 		reloading = false;
+		reloadCircle.fillAmount = 0f;
+
 	}
+
 }

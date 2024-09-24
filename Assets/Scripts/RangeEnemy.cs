@@ -1,9 +1,10 @@
+/*
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class RangeEnemy : Enemy
+public class RangeEnemy : MonoBehaviour
 {
     public float timeBetweenShots = 1f;
     private float lastShotTime;
@@ -24,7 +25,7 @@ public class RangeEnemy : Enemy
 
     void Update()
     {
-        if(player != null)
+        if (player != null)
         {
             if (Vector3.Distance(transform.position, player.position) > stopDistance)
             {
@@ -50,9 +51,10 @@ public class RangeEnemy : Enemy
         {
             if (hit.collider.CompareTag("Player"))
             {
-                playerScript.TakeDamage(damage);
+                // playerScript.TakeDamage(damage);
                 lastShotTime = Time.time;
             }
         }
     }
 }
+*/

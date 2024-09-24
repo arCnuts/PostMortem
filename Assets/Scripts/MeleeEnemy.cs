@@ -1,9 +1,10 @@
+/*
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class MeleeEnemy : Enemy
+public class MeleeEnemy : MonoBehaviour
 {
     public float stopDistance;
     private float AttackTime;
@@ -11,21 +12,21 @@ public class MeleeEnemy : Enemy
     public float timeBetweenAttacks;
     public void Update()
     {
-        if(player != null)
+        if (player != null)
         {
-            if(Vector3.Distance(transform.position, player.position) > stopDistance)
+            if (Vector3.Distance(transform.position, player.position) > stopDistance)
             {
                 transform.position = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
             }
             else
             {
-                if(Time.time >= AttackTime)
+                if (Time.time >= AttackTime)
                 {
                     StartCoroutine(Attack());
                     AttackTime = Time.time + timeBetweenAttacks;
                 }
             }
-        }   
+        }
     }
     IEnumerator Attack()
     {
@@ -40,14 +41,15 @@ public class MeleeEnemy : Enemy
             transform.position = Vector3.Lerp(originalPosition, targetPosition, formula);
             yield return null;
         }
-        
+
     }
     public void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            player.GetComponent<PlayerMovement>().TakeDamage(damage);
+            // player.GetComponent<PlayerMovement>().TakeDamage(damage);
         }
     }
 
 }
+*/

@@ -18,22 +18,20 @@ public class SpriteTurn : MonoBehaviour
 		originalRotation = transform.rotation.eulerAngles;
 	}
 
-	// Use Late update so everything should have finished moving.
 	void LateUpdate()
 	{
-		// There are two ways people billboard things.
-		switch (billboardType)
-		{
-			case BillboardType.LookAtCamera:
-				transform.LookAt(Camera.main.transform.position, Vector3.up);
-				break;
-			case BillboardType.CameraForward:
-				transform.forward = Camera.main.transform.forward;
-				break;
-			default:
-				break;
-		}
-		// Modify the rotation in Euler space to lock certain dimensions.
+		if (Camera.main != null)
+			switch (billboardType)
+			{
+				case BillboardType.LookAtCamera:
+					transform.LookAt(Camera.main.transform.position, Vector3.up);
+					break;
+				case BillboardType.CameraForward:
+					transform.forward = Camera.main.transform.forward;
+					break;
+				default:
+					break;
+			}
 		Vector3 rotation = transform.rotation.eulerAngles;
 		if (lockX) { rotation.x = originalRotation.x; }
 		if (lockY) { rotation.y = originalRotation.y; }

@@ -1,9 +1,10 @@
+/*
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyController : MonoBehaviour
+public class FlyingEnemy : MonoBehaviour
 {
     public NavMeshAgent agent;
     public float range;
@@ -33,7 +34,7 @@ public class EnemyController : MonoBehaviour
         if (chase)
         {
             Chase();
-            return; 
+            return;
         }
 
         if (dist <= range)
@@ -75,7 +76,8 @@ public class EnemyController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            player.GetComponent<PlayerMovement>().TakeDamage(damage);
+            // player.GetComponent<PlayerMovement>().TakeDamage(damage);
         }
     }
 }
+*/

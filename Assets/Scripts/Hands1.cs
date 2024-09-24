@@ -4,15 +4,8 @@ using TMPro;
 using FMODUnity;
 using UnityEngine.UI;
 
-public class Hands : MonoBehaviour
+public class Hands1 : MonoBehaviour
 {
-	[Header("Sway Settings")]
-	public float smooth;
-	public float swayAmount;
-	private float xMousePos;
-	private float yMousePos;
-	public Transform anchor;
-
 	public GameObject bulletHolePrefab;
 	public GameObject bulletHoleContainer;
 	public GameObject[] enemies;
@@ -31,11 +24,6 @@ public class Hands : MonoBehaviour
 	public Light muzzleFlashFlash;
 	public ParticleSystem gunImpact;
 	public GameObject hitParticlePrefab;
-
-	public EventReference pistolShot;
-	public EventReference shotgunShot;
-	public EventReference emptyClip;
-
 	int selectedGun;
 	private float flashIntensity;
 	private float lightIntensity;
@@ -94,41 +82,21 @@ public class Hands : MonoBehaviour
 	{
 		enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
-		Gun pistol = new Gun("Pistol", 24, 12, 0f, 0.25f, 0.2f, 30f, 400f, pistolAnim, pistolShot, true, 1);
-		Gun shotgun = new Gun("Shotgun", 10, 3, 0.1f, 0.5f, 0.5f, 10f, 250f, shotgunAnim, shotgunShot, true, 6);
-		Gun subMachineGun = new Gun("uzi", 48, 12, 0.1f, 0.3f, 0.1f, 12f, 400f, uziAnim, pistolShot, true, 1, true);
-		Gun machineGun = new Gun("Pistol", 400, 12, 1.2f, 0.5f, 1f, 1f, 250f, null, pistolShot, false);
+		// Gun pistol = new Gun("Pistol", 24, 12, 0f, 0.25f, 0.2f, 30f, 400f, pistolAnim, pistolShot, true, 1);
+		// Gun shotgun = new Gun("Shotgun", 10, 3, 0.1f, 0.5f, 0.5f, 10f, 250f, shotgunAnim, shotgunShot, true, 6);
+		// Gun subMachineGun = new Gun("uzi", 48, 12, 0.1f, 0.3f, 0.1f, 12f, 400f, uziAnim, pistolShot, true, 1, true);
+		// Gun machineGun = new Gun("Pistol", 400, 12, 1.2f, 0.5f, 1f, 1f, 250f, null, pistolShot, false);
 
-		Inventory[0] = pistol;
-		Inventory[1] = shotgun;
-		Inventory[2] = subMachineGun;
-		Inventory[3] = machineGun;
+		// Inventory[0] = pistol;
+		// Inventory[1] = shotgun;
+		// Inventory[2] = subMachineGun;
+		// Inventory[3] = machineGun;
 
 		readyToShoot = true;
 	}
 
 	void Update()
 	{
-		#region  Weapon Sway
-		xMousePos = Input.GetAxisRaw("Mouse X");
-		yMousePos = Input.GetAxisRaw("Mouse Y");
-		float offsetX = xMousePos * swayAmount;
-		float offsetY = yMousePos * swayAmount;
-		Vector3 targetPosition = new Vector3(-offsetX, -offsetY, 0f);
-
-		anchor.localPosition = Vector3.Lerp(anchor.localPosition, targetPosition, smooth * Time.deltaTime);
-
-		// targetPosition += new Vector3(1000f,1000f, 10f);    SUPPOSED TO BE IN SHOOT METHOD
-		#endregion
-
-		if (equippedGun != Inventory[selectedGun])
-		{
-			// set opacity value to X
-		}
-		// lerp opacity, value x, time
-		// maybe add some invoke function if the selected gun changed
-		// to start lerping after that so there's a delay
-
 		equippedGun = Inventory[selectedGun];
 		if (Input.GetKeyDown(KeyCode.Alpha1) && Inventory[0].acquired) selectedGun = 0;
 		if (Input.GetKeyDown(KeyCode.Alpha2) && Inventory[1].acquired) selectedGun = 1;
@@ -186,7 +154,7 @@ public class Hands : MonoBehaviour
 			else
 			{
 				readyToShoot = false;
-				RuntimeManager.PlayOneShot(emptyClip);
+				// RuntimeManager.PlayOneShot(emptyClip);
 				Invoke("ResetShot", equippedGun.shootingCooldown);
 			}
 		}
@@ -199,7 +167,7 @@ public class Hands : MonoBehaviour
 			else
 			{
 				readyToShoot = false;
-				RuntimeManager.PlayOneShot(emptyClip);
+				// RuntimeManager.PlayOneShot(emptyClip);
 				Invoke("ResetShot", equippedGun.shootingCooldown);
 			}
 		}

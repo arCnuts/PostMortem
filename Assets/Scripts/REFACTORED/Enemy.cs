@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -40,6 +41,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         enemyNavMesh = GetComponent<NavMeshAgent>();
+        AttackDist = enemyNavMesh.stoppingDistance;
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         currentEnemy = new enemyType(selectedAttackType, health, speed, damage);
     }
@@ -66,22 +68,21 @@ public class Enemy : MonoBehaviour
 
     public void MeleeBehavior()
     {
-        float stopDistance = 5;
         float timeBetweenAttacks = 2;
         if (playerTransform != null)
-            if (Vector3.Distance(transform.position, playerTransform.position) > stopDistance)
+        {
+            bool inDistance = Vector3.Distance(transform.position, playerTransform.position) <= AttackDist;
+            if (inDistance && Time.time >= AttackTime)
             {
-                transform.position = Vector3.MoveTowards(transform.position, playerTransform.position, speed * Time.deltaTime);
+                StartCoroutine(Attack());
+                AttackTime = Time.time + timeBetweenAttacks;
             }
             else
             {
-                if (Time.time >= AttackTime)
-                {
-                    StartCoroutine(Attack());
-                    AttackTime = Time.time + timeBetweenAttacks;
-                }
+                UpdatePath();
             }
-    }
+        }
+    }   
 
     IEnumerator Attack()
     {
@@ -111,31 +112,80 @@ public class Enemy : MonoBehaviour
 
     }
 
+    [Header("RangeEnemy Stats")]
+    private float pathUpdateDeadline;
+    private float AttackDist;
+    public float pathUpdateDelay = 0.2f;
+    private float fireRate = 1.0f;
+    private float nextShotTime = 1f;
+
     public void RangeBehavior()
     {
-    }
-    public void FlyingBehavior()
-    {
-    }
-
-    public void TakeDamage(float damage)
-    {
-        health -= damage;
-
-        if (currentEnemy.health <= 0)
+        if (playerTransform != null)
         {
-            Destroy(gameObject);
+            bool inRange = Vector3.Distance(transform.position, playerTransform.position) <= AttackDist;
+            if (inRange)
+            {
+                Shoot();
+            }
+            else
+            {
+                UpdatePath();
+            }
         }
     }
 
-    public void ApplyKnockBack(float knockbackForce)
+    private void UpdatePath()
     {
-
-        Vector3 knockBackDirection = (transform.position - playerTransform.position).normalized;
-        knockBackDirection.y = 0;
-
-        Vector3 knockBackMovement = knockBackDirection * knockbackForce * Time.deltaTime;
-
-        transform.position += knockBackMovement;
+        if (Time.time >= pathUpdateDeadline)
+        {
+            pathUpdateDeadline = Time.time + pathUpdateDelay;
+            enemyNavMesh.SetDestination(playerTransform.position);
+        }
     }
-}
+
+    private void Shoot()
+    {
+        if (Time.time >= nextShotTime)
+        {
+            Vector3 directionToPlayer = (playerTransform.position - transform.position).normalized;
+            RaycastHit hit;
+
+            if (Physics.Raycast(transform.position, directionToPlayer, out hit, AttackDist))
+            {
+                PlayerMain player = hit.collider.GetComponent<PlayerMain>();
+                if (player != null)
+                {
+                    player.TakeDamage(damage);
+                    nextShotTime = Time.time + fireRate;
+                }
+            }
+        }
+    }
+
+    public void FlyingBehavior()
+        {
+
+        }
+
+        public void TakeDamage(float damage)
+        {
+            health -= damage;
+
+            if (currentEnemy.health <= 0)
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        public void ApplyKnockBack(float knockbackForce)
+        {
+
+            Vector3 knockBackDirection = (transform.position - playerTransform.position).normalized;
+            knockBackDirection.y = 0;
+
+            Vector3 knockBackMovement = knockBackDirection * knockbackForce * Time.deltaTime;
+
+            transform.position += knockBackMovement;
+        }
+    }

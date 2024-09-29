@@ -729,7 +729,7 @@ Transform:
   m_GameObject: {fileID: 215615229}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.657, y: 0.53, z: 0}
+  m_LocalPosition: {x: -0.48, y: 0.47, z: 0}
   m_LocalScale: {x: 1.3333334, y: 1.3333334, z: 1.3333334}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -2122,8 +2122,6 @@ MonoBehaviour:
   speed: 4
   damage: 25
   pathUpdateDelay: 0.2
-  shootEffect: {fileID: 0}
-  firePoint: {fileID: 0}
 --- !u!1 &428446499
 GameObject:
   m_ObjectHideFlags: 0
@@ -7629,8 +7627,6 @@ MonoBehaviour:
   speed: 4
   damage: 25
   pathUpdateDelay: 0.2
-  shootEffect: {fileID: 0}
-  firePoint: {fileID: 0}
 --- !u!1 &583751976
 GameObject:
   m_ObjectHideFlags: 0
@@ -13318,9 +13314,6 @@ MonoBehaviour:
   speed: 2
   damage: 10
   pathUpdateDelay: 0.2
-  shootEffect: {fileID: 8379108544239430380, guid: 5f6b74d4ed37b814aa6407cf0172b05c,
-    type: 3}
-  firePoint: {fileID: 826652826}
 --- !u!1 &794397572
 GameObject:
   m_ObjectHideFlags: 0
@@ -36690,31 +36683,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 1545739534954584080, guid: 0beabae58f7a4e94dbe6eb4cea6ef5fc,
-        type: 3}
-      propertyPath: panel
-      value: 
-      objectReference: {fileID: 1331987440}
-    - target: {fileID: 1545739534954584080, guid: 0beabae58f7a4e94dbe6eb4cea6ef5fc,
-        type: 3}
-      propertyPath: healthBar
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1545739534954584080, guid: 0beabae58f7a4e94dbe6eb4cea6ef5fc,
-        type: 3}
-      propertyPath: healthText
-      value: 
-      objectReference: {fileID: 2061513442}
-    - target: {fileID: 1545739534954584080, guid: 0beabae58f7a4e94dbe6eb4cea6ef5fc,
-        type: 3}
-      propertyPath: bloodOverlay
-      value: 
-      objectReference: {fileID: 288260789}
-    - target: {fileID: 6532227389151411501, guid: 0beabae58f7a4e94dbe6eb4cea6ef5fc,
-        type: 3}
-      propertyPath: _health
-      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6532227389151411501, guid: 0beabae58f7a4e94dbe6eb4cea6ef5fc,
         type: 3}

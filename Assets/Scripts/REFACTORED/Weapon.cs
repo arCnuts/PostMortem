@@ -166,7 +166,6 @@ public class Weapon : MonoBehaviour
         muzzleFlashLight.intensity = Mathf.Lerp(lightIntensity, 0f, Time.deltaTime * 10f);
         muzzleFlashFlash.intensity = Mathf.Lerp(flashIntensity, 0f, Time.deltaTime * 15f);
     }
-
     void Shoot()
     {
         readyToShoot = false;

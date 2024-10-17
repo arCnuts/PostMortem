@@ -38,6 +38,7 @@ public class PlayerMain : MonoBehaviour
             }
 
             Debug.Log(health);
+            Destroy(other.gameObject);
         }
     }
 }

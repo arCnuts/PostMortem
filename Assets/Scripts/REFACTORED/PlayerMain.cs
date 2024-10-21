@@ -40,5 +40,10 @@ public class PlayerMain : MonoBehaviour
             //Debug.Log(health);
             Destroy(other.gameObject);
         }
+        if(other.CompareTag("Ammo"))
+        {
+            Weapon.Inventory[Weapon.selectedGun].ammo += 500;
+            Destroy(other.gameObject);
+        }
     }
 }

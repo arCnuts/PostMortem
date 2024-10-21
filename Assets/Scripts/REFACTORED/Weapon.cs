@@ -19,7 +19,7 @@ public class Weapon : MonoBehaviour
     public AnimatorController shotgunAnim;
     public AnimatorController uziAnim;
     public Animator hand;
-    public Gun[] Inventory = new Gun[4];
+    public static Gun[] Inventory = new Gun[4];
     public static Gun equippedGun;
 
     public Transform muzzleFlash;
@@ -33,7 +33,7 @@ public class Weapon : MonoBehaviour
     public GameObject hitParticlePrefab;
     public GameObject ParticleEffectPrefab;
 
-    int selectedGun;
+    public static int selectedGun;
 
     public static bool reloading;
     bool readyToShoot;
@@ -95,6 +95,7 @@ public class Weapon : MonoBehaviour
         Inventory[3] = machineGun;
 
         readyToShoot = true;
+
     }
 
 

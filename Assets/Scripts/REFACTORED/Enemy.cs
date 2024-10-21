@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     public NavMeshAgent enemyNavMesh;
     public Transform playerTransform;
     public enemyType currentEnemy;
+    public GameObject ParticleEffect;
     public enum attackType
     {
         Melee,
@@ -48,7 +49,6 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        currentEnemy.health = health;
 
         switch (currentEnemy.attackType)
         {
@@ -172,7 +172,7 @@ public class Enemy : MonoBehaviour
         {
             health -= damage;
 
-            if (currentEnemy.health <= 0)
+            if (health <= 0)
             {
                 Destroy(gameObject);
             }

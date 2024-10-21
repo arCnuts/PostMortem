@@ -17,7 +17,7 @@ public class PlayerMain : MonoBehaviour
     {
         health -= damage;
 
-        Debug.Log(health);
+        //Debug.Log(health);
 
         if (health <= 0)
         {
@@ -37,7 +37,7 @@ public class PlayerMain : MonoBehaviour
                 health = 100;
             }
 
-            Debug.Log(health);
+            //Debug.Log(health);
             Destroy(other.gameObject);
         }
     }

@@ -31,6 +31,7 @@ public class Weapon : MonoBehaviour
 
     public ParticleSystem gunImpact;
     public GameObject hitParticlePrefab;
+    public GameObject ParticleEffectPrefab;
 
     int selectedGun;
 
@@ -83,9 +84,9 @@ public class Weapon : MonoBehaviour
 
     void Start()
     {
-        Gun pistol = new Gun("Pistol", 24, 12, 0f, 0.25f, 0.2f, 30f, 400f, true, pistolAnim, pistolShot, 1);
-        Gun shotgun = new Gun("Shotgun", 10, 3, 0.1f, 0.5f, 0.5f, 10f, 250f, true, shotgunAnim, shotgunShot, 6);
-        Gun subMachineGun = new Gun("uzi", 48, 12, 0.1f, 0.3f, 0.1f, 12f, 400f, true, uziAnim, pistolShot, 1, true);
+        Gun pistol = new Gun("Pistol", 24, 12, 0f, 0.25f, 0.2f, 25f, 400f, true, pistolAnim, pistolShot, 1);
+        Gun shotgun = new Gun("Shotgun", 10, 3, 0.1f, 0.5f, 0.5f, 30f, 250f, true, shotgunAnim, shotgunShot, 6);
+        Gun subMachineGun = new Gun("uzi", 48, 12, 0.1f, 0.3f, 0.1f, 20f, 400f, true, uziAnim, pistolShot, 1, true);
         Gun machineGun = new Gun("Pistol", 400, 12, 1.2f, 0.5f, 1f, 1f, 250f, false, null, pistolShot);
 
         Inventory[0] = pistol;
@@ -193,6 +194,7 @@ public class Weapon : MonoBehaviour
                     Enemy enemy = hit.collider.GetComponent<Enemy>();
                     if (enemy != null)
                     {
+                        Debug.Log(enemy.health);
                         enemy.TakeDamage(equippedGun.damage);
                         enemy.ApplyKnockBack(equippedGun.knockBackForce);
                         OnEnemyShot?.Invoke();
@@ -203,6 +205,12 @@ public class Weapon : MonoBehaviour
                             GameObject particleInstance = Instantiate(hitParticlePrefab, hit.point, Quaternion.identity);
                             particleInstance.transform.LookAt(hit.point + hit.normal);
                             Destroy(particleInstance, 2f);
+                        }
+                        if (ParticleEffectPrefab != null && enemy.health <= 0)
+                        {
+                            GameObject ParticleEffect = Instantiate(ParticleEffectPrefab, hit.point, Quaternion.identity);
+                            //ParticleEffect.transform.LookAt(hit.point + hit.normal);
+                            Destroy(ParticleEffect, 2f);
                         }
                     }
                 }

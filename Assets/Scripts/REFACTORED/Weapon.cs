@@ -262,6 +262,7 @@ public class Weapon : MonoBehaviour
         }
         OnReloadStarted?.Invoke();
         reloading = true;
+        hand.Play("gunReload");
         Invoke("ReloadFinished", equippedGun.reloadTime);
     }
 

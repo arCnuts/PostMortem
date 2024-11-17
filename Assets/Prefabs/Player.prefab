@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 8.73, y: 1, z: -24.339}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.7771494, y: 2.7771494, z: 2.4994068}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9103660723309251251}
@@ -81,7 +81,7 @@ CharacterController:
   m_Height: 2
   m_Radius: 0.5
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
@@ -107,8 +107,8 @@ MonoBehaviour:
       Data4: -1788786474
     Path: event:/footstep
   isWalking: 0
-  playerSpeed: 10
-  momentumDamping: 5
+  playerSpeed: 20
+  momentumDamping: 3
   sensitivity: 1.5
   smoothing: 1.5
 --- !u!114 &6532227389151411501
@@ -123,8 +123,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e28264e12e9a294dbe286d3e298e948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 100
+  _health: 1000
   deathScreen: {fileID: 0}
+  MedkitPoints: 25
 --- !u!1 &7294323269973545198
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     public Transform playerTransform;
     public enemyType currentEnemy;
     public GameObject ParticleEffect;
+
     public enum attackType
     {
         Melee,
@@ -38,6 +39,7 @@ public class Enemy : MonoBehaviour
     }
 
     float AttackTime;
+    private bool hasIndicator = false;  
 
     void Start()
     {
@@ -49,7 +51,25 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
+       
+        if (D1_System.CheckIfObjectInSight != null)
+        {
+            bool inSight = D1_System.CheckIfObjectInSight(transform);
 
+            if (!inSight && !hasIndicator)
+            {
+               
+                D1_System.CreateIndicator?.Invoke(transform);
+                hasIndicator = true;
+            }
+            else if (inSight && hasIndicator)
+            {
+               
+                hasIndicator = false;
+            }
+        }
+
+        // Attack behavior based on the current enemy's attack type
         switch (currentEnemy.attackType)
         {
             case attackType.Melee:
@@ -82,7 +102,7 @@ public class Enemy : MonoBehaviour
                 UpdatePath();
             }
         }
-    }   
+    }
 
     IEnumerator Attack()
     {
@@ -99,7 +119,6 @@ public class Enemy : MonoBehaviour
             transform.position = Vector3.Lerp(originalPosition, targetPosition, formula);
             yield return null;
         }
-
     }
 
     public void OnTriggerEnter(Collider other)
@@ -109,7 +128,6 @@ public class Enemy : MonoBehaviour
             PlayerMain playerMain = other.GetComponent<PlayerMain>();
             playerMain.TakeDamage(damage);
         }
-
     }
 
     [Header("RangeEnemy Stats")]
@@ -164,28 +182,27 @@ public class Enemy : MonoBehaviour
     }
 
     public void FlyingBehavior()
+    {
+        // Add flying behavior here
+    }
+
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+
+        if (health <= 0)
         {
-
-        }
-
-        public void TakeDamage(float damage)
-        {
-            health -= damage;
-
-            if (health <= 0)
-            {
-                Destroy(gameObject);
-            }
-        }
-
-        public void ApplyKnockBack(float knockbackForce)
-        {
-
-            Vector3 knockBackDirection = (transform.position - playerTransform.position).normalized;
-            knockBackDirection.y = 0;
-
-            Vector3 knockBackMovement = knockBackDirection * knockbackForce * Time.deltaTime;
-
-            transform.position += knockBackMovement;
+            Destroy(gameObject);
         }
     }
+
+    public void ApplyKnockBack(float knockbackForce)
+    {
+        Vector3 knockBackDirection = (transform.position - playerTransform.position).normalized;
+        knockBackDirection.y = 0;
+
+        Vector3 knockBackMovement = knockBackDirection * knockbackForce * Time.deltaTime;
+
+        transform.position += knockBackMovement;
+    }
+}

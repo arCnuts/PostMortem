@@ -188,6 +188,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyNavMesh: {fileID: 0}
   playerTransform: {fileID: 0}
+  ParticleEffect: {fileID: 0}
   selectedAttackType: 0
   health: 50
   speed: 4

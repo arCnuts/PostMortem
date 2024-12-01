@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - MedKit
   - Ammo
+  - Lava
   layers:
   - Default
   - TransparentFX

@@ -70,3 +70,6 @@ fmod_editor.log
 /Assets/Plugins/FMOD/platforms/**/lib/
 /Assets/Plugins/FMOD/platforms/**/lib.meta
 /Assets/Plugins/FMOD/platforms/**/lib/
+ProjectSettings/URPProjectSettings.asset
+Assets/Model/Materials/MorsLovetts_diff.mat
+ProjectSettings/URPProjectSettings.asset

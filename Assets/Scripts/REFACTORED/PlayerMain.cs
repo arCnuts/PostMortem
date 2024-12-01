@@ -11,13 +11,14 @@ public class PlayerMain : MonoBehaviour
     void Start()
     {
         health = _health;
+        health = Mathf.Clamp(health, 0f, 100f);
+
     }
 
     public void TakeDamage(float damage)
     {
         health -= damage;
 
-        //Debug.Log(health);
 
         if (health <= 0)
         {
@@ -32,12 +33,7 @@ public class PlayerMain : MonoBehaviour
         if(other.CompareTag("MedKit"))
         {
             health += MedkitPoints;
-            if(health > 100)
-            {
-                health = 100;
-            }
 
-            //Debug.Log(health);
             Destroy(other.gameObject);
         }
         if(other.CompareTag("Ammo"))
@@ -45,5 +41,6 @@ public class PlayerMain : MonoBehaviour
             Weapon.Inventory[Weapon.selectedGun].ammo += 500;
             Destroy(other.gameObject);
         }
+        
     }
 }

@@ -9,7 +9,6 @@ public class Enemy : MonoBehaviour
     public NavMeshAgent enemyNavMesh;
     public Transform playerTransform;
     public enemyType currentEnemy;
-    public GameObject ParticleEffect;
 
     public enum attackType
     {

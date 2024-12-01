@@ -18,7 +18,7 @@ public class EnemyTriggerBox : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             InvokeRepeating(nameof(EnemySpawner), 0.5f, repeatRate);
-            Destroy(gameObject, 60); 
+            Destroy(gameObject, 30); 
             gameObject.GetComponent<BoxCollider>().enabled = false;
         }
     }

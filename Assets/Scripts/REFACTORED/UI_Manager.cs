@@ -2,9 +2,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using System.Threading;
 
 public class UI_Manager : MonoBehaviour
 {
+    public TextMeshProUGUI _enemiesKilled;
+    public TextMeshProUGUI timer;
     public TextMeshProUGUI ammo;
     public Slider healthBar;
     public Image reloadCircle;
@@ -17,6 +20,10 @@ public class UI_Manager : MonoBehaviour
 
     private RaycastHit hitInfo;
 
+    public int duration = 60;
+    public int timeRemaining;
+    public bool isCountingDown = false;
+
     void Start()
     {
         healthBar.maxValue = PlayerMain.health;
@@ -26,6 +33,27 @@ public class UI_Manager : MonoBehaviour
         Weapon.OnReloadStarted += ReloadStarted;
         Weapon.OnReloadFinished += ReloadFinished;
         Weapon.OnEnemyShot += EnemyShot;
+
+        if (!isCountingDown)
+        {
+            isCountingDown = true;
+            timeRemaining = duration;
+            Invoke("_tick", 1f);
+        }
+
+    }
+
+    private void _tick()
+    {
+        timeRemaining--;
+        if (timeRemaining > 0)
+        {
+            Invoke("_tick", 1f);
+        }
+        else
+        {
+            isCountingDown = false;
+        }
     }
 
     void ReloadStarted()
@@ -56,6 +84,10 @@ public class UI_Manager : MonoBehaviour
     {
         healthBar.value = PlayerMain.health;
         ammo.text = $"<color=#ffffff>{Weapon.equippedGun.bulletsLeft}</color><color=#d9d9d9><size=60%>/{Weapon.equippedGun.ammo}</size></color><br><color=#ffffff>{Weapon.equippedGun.name}</color>";
+        int minutes = timeRemaining / 60;
+        int seconds = timeRemaining % 60;
+        timer.text = $"{minutes:D2}'.{seconds:D2}";
+        _enemiesKilled.text = $"{Enemy.enemiesKilled}/50";
 
         if (Weapon.reloading)
         {

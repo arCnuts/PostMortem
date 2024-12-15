@@ -5,6 +5,9 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
+    public static int enemiesKilled = 0;
+
+
     public enemyType[] enemies = new enemyType[4];
     public NavMeshAgent enemyNavMesh;
     public Transform playerTransform;
@@ -38,7 +41,7 @@ public class Enemy : MonoBehaviour
     }
 
     float AttackTime;
-    private bool hasIndicator = false;  
+    private bool hasIndicator = false;
 
     void Start()
     {
@@ -50,20 +53,20 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-       
+
         if (D1_System.CheckIfObjectInSight != null)
         {
             bool inSight = D1_System.CheckIfObjectInSight(transform);
 
             if (!inSight && !hasIndicator)
             {
-               
+
                 D1_System.CreateIndicator?.Invoke(transform);
                 hasIndicator = true;
             }
             else if (inSight && hasIndicator)
             {
-               
+
                 hasIndicator = false;
             }
         }
@@ -191,6 +194,7 @@ public class Enemy : MonoBehaviour
 
         if (health <= 0)
         {
+            enemiesKilled++;
             Destroy(gameObject);
         }
     }

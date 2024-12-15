@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 using System.Threading;
+using UnityEngine.SceneManagement;
 
 public class UI_Manager : MonoBehaviour
 {
@@ -87,7 +88,7 @@ public class UI_Manager : MonoBehaviour
         int minutes = timeRemaining / 60;
         int seconds = timeRemaining % 60;
         timer.text = $"{minutes:D2}'.{seconds:D2}";
-        _enemiesKilled.text = $"{Enemy.enemiesKilled}/50";
+        _enemiesKilled.text = $"{Enemy.enemiesKilled}";
 
         if (Weapon.reloading)
         {
@@ -123,5 +124,10 @@ public class UI_Manager : MonoBehaviour
         Weapon.OnReloadStarted -= ReloadStarted;
         Weapon.OnReloadFinished -= ReloadFinished;
         Weapon.OnEnemyShot -= EnemyShot;
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene("temple");
     }
 }

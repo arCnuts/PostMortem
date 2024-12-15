@@ -13,8 +13,6 @@ public class PortalTrigger : MonoBehaviour
 
     void LoadNextScene()
     {
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        int nextSceneIndex = currentSceneIndex + 1;
-        SceneManager.LoadScene(nextSceneIndex, LoadSceneMode.Single);
+        SceneManager.LoadScene("Victory");
     }
 }

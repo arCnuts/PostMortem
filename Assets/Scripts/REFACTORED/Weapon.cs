@@ -3,9 +3,11 @@ using UnityEngine;
 using FMODUnity;
 using Action = System.Action;
 using Random = UnityEngine.Random;
+using System.Collections.Generic;
 
 public class Weapon : MonoBehaviour
 {
+  
     public static event Action OnReloadStarted;
     public static event Action OnReloadFinished;
     public static event Action OnEnemyShot;
@@ -71,7 +73,7 @@ public class Weapon : MonoBehaviour
             spread = _spread;
             reloadTime = _reloadTime;
             shootingCooldown = _shootingCooldown;
-            damage = _damage;
+            damage = Mathf.Clamp(_damage, 0f, 100f);
             acquired = _acquired;
             knockBackForce = _knockBackForce;
             ac = _ac;
@@ -85,7 +87,7 @@ public class Weapon : MonoBehaviour
     void Start()
     {
         Gun pistol = new Gun("Pistol", 24, 12, 0f, 0.25f, 0.2f, 25f, 400f, true, pistolAnim, pistolShot, 1);
-        Gun shotgun = new Gun("Shotgun", 10, 3, 0.1f, 0.5f, 0.5f, 30f, 250f, true, shotgunAnim, shotgunShot, 6);
+        Gun shotgun = new Gun("Shotgun", 10, 3, 0.1f, 0.5f, 0.5f, 60f, 250f, true, shotgunAnim, shotgunShot, 6);
         Gun subMachineGun = new Gun("uzi", 48, 12, 0.1f, 0.3f, 0.1f, 20f, 400f, true, uziAnim, pistolShot, 1, true);
         Gun machineGun = new Gun("Pistol", 400, 12, 1.2f, 0.5f, 1f, 1f, 250f, false, null, pistolShot);
 
@@ -95,7 +97,6 @@ public class Weapon : MonoBehaviour
         Inventory[3] = machineGun;
 
         readyToShoot = true;
-
     }
 
 
@@ -181,6 +182,9 @@ public class Weapon : MonoBehaviour
 
         RuntimeManager.PlayOneShot(equippedGun.shootSound);
 
+        // To track if an enemy has already been hit by this shot
+        HashSet<Enemy> hitEnemies = new HashSet<Enemy>();
+
         for (int i = 0; i < equippedGun.pellets; i++)
         {
             float y = Random.Range(-equippedGun.spread, equippedGun.spread);
@@ -193,13 +197,14 @@ public class Weapon : MonoBehaviour
                 if (hit.collider.CompareTag("Enemy"))
                 {
                     Enemy enemy = hit.collider.GetComponent<Enemy>();
-                    if (enemy != null)
+                    if (enemy != null && !hitEnemies.Contains(enemy)) // Check if the enemy has already been hit
                     {
                         Debug.Log(enemy.health);
                         enemy.TakeDamage(equippedGun.damage);
                         enemy.ApplyKnockBack(equippedGun.knockBackForce);
-                        OnEnemyShot?.Invoke();
+                        OnEnemyShot?.Invoke(); // Only call this once per enemy
 
+                        hitEnemies.Add(enemy); // Mark this enemy as hit
 
                         if (hitParticlePrefab != null)
                         {
@@ -210,7 +215,6 @@ public class Weapon : MonoBehaviour
                         if (ParticleEffectPrefab != null && enemy.health <= 0)
                         {
                             GameObject ParticleEffect = Instantiate(ParticleEffectPrefab, hit.point, Quaternion.identity);
-                            //ParticleEffect.transform.LookAt(hit.point + hit.normal);
                             Destroy(ParticleEffect, 2f);
                         }
                     }
@@ -220,7 +224,6 @@ public class Weapon : MonoBehaviour
                 gunImpact.transform.forward = hit.normal;
                 gunImpact.Emit(1);
 
-
                 SpawnBulletHole(hit, ray);
             }
         }
@@ -228,8 +231,8 @@ public class Weapon : MonoBehaviour
         equippedGun.bulletsLeft--;
 
         Invoke("ResetShot", equippedGun.shootingCooldown);
-
     }
+
 
 
     void SpawnBulletHole(RaycastHit hit, Ray ray)

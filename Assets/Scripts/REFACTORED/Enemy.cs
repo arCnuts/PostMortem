@@ -6,6 +6,8 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     public static int enemiesKilled = 0;
+    
+
 
 
     public enemyType[] enemies = new enemyType[4];
@@ -45,6 +47,7 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
+        
         enemyNavMesh = GetComponent<NavMeshAgent>();
         AttackDist = enemyNavMesh.stoppingDistance;
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
@@ -190,7 +193,7 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        health -= damage;
+   health -= damage;
 
         if (health <= 0)
         {

@@ -4,14 +4,19 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMain : MonoBehaviour
 {
-    public static float health = 100f; // Initialize health to a proper starting value
+    public static float health = 100f; // Static variable for health
     public GameObject deathScreen;
     public float MedkitPoints;
 
     void Start()
     {
-        int value = Enemy.enemiesKilled;
-        health = Mathf.Clamp(health, 0f, 100f); // Ensure health is within bounds at the start
+        ResetPlayerState(); // Reset health and any other static variables
+    }
+
+    private void ResetPlayerState()
+    {
+        health = 100f; // Reset health to the initial value
+        Enemy.enemiesKilled = 0; // Reset other game states if needed
     }
 
     public void TakeDamage(float damage)

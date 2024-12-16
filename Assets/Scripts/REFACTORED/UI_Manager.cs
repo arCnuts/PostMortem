@@ -89,7 +89,12 @@ public class UI_Manager : MonoBehaviour
         int seconds = timeRemaining % 60;
         timer.text = $"{minutes:D2}'.{seconds:D2}";
         _enemiesKilled.text = $"{Enemy.enemiesKilled}";
-
+        if(timeRemaining <= 0)
+        {
+            SceneManager.LoadScene("DeathScreen");
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
         if (Weapon.reloading)
         {
             currentReloadProgress += Time.deltaTime / Weapon.equippedGun.reloadTime;
@@ -126,8 +131,4 @@ public class UI_Manager : MonoBehaviour
         Weapon.OnEnemyShot -= EnemyShot;
     }
 
-    public void Restart()
-    {
-        SceneManager.LoadScene("temple");
-    }
 }

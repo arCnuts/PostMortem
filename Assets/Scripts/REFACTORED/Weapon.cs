@@ -1,4 +1,3 @@
-using UnityEditor.Animations;
 using UnityEngine;
 using FMODUnity;
 using Action = System.Action;
@@ -7,7 +6,6 @@ using System.Collections.Generic;
 
 public class Weapon : MonoBehaviour
 {
-  
     public static event Action OnReloadStarted;
     public static event Action OnReloadFinished;
     public static event Action OnEnemyShot;
@@ -17,9 +15,9 @@ public class Weapon : MonoBehaviour
     public GameObject[] enemies;
     public float destroyDelay;
 
-    public AnimatorController pistolAnim;
-    public AnimatorController shotgunAnim;
-    public AnimatorController uziAnim;
+    public RuntimeAnimatorController pistolAnim;
+    public RuntimeAnimatorController shotgunAnim;
+    public RuntimeAnimatorController uziAnim;
     public Animator hand;
     public static Gun[] Inventory = new Gun[4];
     public static Gun equippedGun;
@@ -50,7 +48,7 @@ public class Weapon : MonoBehaviour
         public int ammo;
         public int magSize;
         public float spread;
-        public AnimatorController ac;
+        public RuntimeAnimatorController ac;
         public bool acquired;
         public int bulletsLeft;
         public int pellets;
@@ -63,7 +61,7 @@ public class Weapon : MonoBehaviour
 
         public Gun(string _name, int _ammo, int _magSize, float _spread, float _reloadTime,
                    float _shootingCooldown, float _damage, float _knockBackForce, bool _acquired,
-                   AnimatorController _ac, EventReference _shootSound,
+                   RuntimeAnimatorController _ac, EventReference _shootSound,
                    int _pellets = 1, bool _fullAuto = false)
         {
             name = _name;
@@ -80,7 +78,6 @@ public class Weapon : MonoBehaviour
             pellets = _pellets;
             shootSound = _shootSound;
             fullAuto = _fullAuto;
-
         }
     }
 
@@ -98,7 +95,6 @@ public class Weapon : MonoBehaviour
 
         readyToShoot = true;
     }
-
 
     void Update()
     {
@@ -164,7 +160,6 @@ public class Weapon : MonoBehaviour
                 Invoke("ResetShot", equippedGun.shootingCooldown);
             }
         }
-
 
         muzzleFlashLight.intensity = Mathf.Lerp(lightIntensity, 0f, Time.deltaTime * 10f);
         muzzleFlashFlash.intensity = Mathf.Lerp(flashIntensity, 0f, Time.deltaTime * 15f);
